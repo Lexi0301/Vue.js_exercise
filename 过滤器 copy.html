@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>过滤器</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.7/dayjs.min.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<h2>时间</h2>
+            <h3>当前时间戳：{{time}}</h3>
+			<!-- |管道符 -->
+			<!-- 拿time传给timeFormater，得到的值替换“time | timeFormater()” -->
+            <h3>转换后时间：{{time | timeFormater}}</h3>
+			<!-- timeFormater可以不加小括号，也可以自 定义数据格式 -->
+			<h3>转换后时间：{{time | timeFormater('YYYY-MM-DD')}}</h3>
+			<!-- 层层递进，传参也不影响-->
+			<h3>截取年月日：{{time | timeFormater() | mySlice}}</h3>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false
+		//全局过滤器可以用于多个组件,myslice切割字符串，
+		// 配合插值语法{{time | timeFormater() | mySlice}}或v-bind:
+		Vue.filter('mySlice',function(value){
+			return value.slice(0,11)                             
+		})
+		new Vue({
+            el:'#root',
+            data:{
+                time:1678940808983,  
+            },
+			//局部过滤器
+            filters:{
+				// dayj.format()可以用方法、计算属性、过滤器实现
+				// value指 this.time
+                timeFormater(value, str="YYYY年MM月DD日 HH:mm:ss"){
+                    return dayjs(value).format(str)
+                }
+            }
+        })
+	</script>
+</html>

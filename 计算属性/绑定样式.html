@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定样式</title>
+    <style>
+        .basic{
+            height: 50px;
+            width: 300px;
+            border: 1px  solid black;
+        }
+        .happy{
+            background-color: pink;
+        }
+        .sad{
+            background-color: gray;
+        }
+        .normal{
+            background-color: #63a7ff;
+        }
+        .big{
+            font-size: 55px;
+        }
+        .color{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root" >
+        <!-- 绑定class样式---字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+        <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+        <br>
+        <!-- 绑定class样式---字数组写法，适用于：样式的个数不确定，名字也不确定 -->
+        <div class="basic" :class="classArr">{{name}}</div>
+        <!-- 绑定class样式---字数组写法，适用于：样式的个数确定，名字不确定 -->
+        <div class="basic" :class="classObj">{{name}}</div>
+        <!-- 数据绑定:style要跟表达式或者{对象} -->
+        <!-- font-size不合法，要用fontSize -->
+        <!-- <div class="basic" :style="{fontSize: fsize+'px'}">{{name}}</div> -->
+        <div class="basic" :style="styleObj">{{name}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                mood:'normal',
+                name:'jxhv',
+                classArr:['normal','big','color'],
+                classObj:{
+                    big:true,
+                    color:false
+                },
+                fsize:40,
+                styleObj:{
+                    fontSize:'40px', 
+                    color:'red'
+                }
+            },
+            methods: {
+                changeMood(){
+                    const arr =['happy','sad','normal'];
+                    var index = Math.floor(Math.random()*3);//向下取整，随机数范围是0-1
+                    this.mood = arr[index];
+                }
+            }
+        });
+    </script>
+</body>
+</html>

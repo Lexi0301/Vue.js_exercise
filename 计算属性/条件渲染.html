@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 使用v-show做条件渲染 -->
+        <!-- <h2 v-show='false'>欢迎{{name}}</h2> -->
+
+        <!-- 使用v-if做条件渲染 -->
+        <!-- <h2 v-if='false'>欢迎{{name}}</h2> -->
+
+        <!-- v-else v-else-if 不能打断 -->
+        <h2>n的值:{{n}}</h2>
+        <button @click="n++">n+1</button>
+
+        <div v-if="n === 1">Angular</div>
+        <div v-else-if="n === 2">React</div>
+        <div v-else-if="n === 3">Vue</div>
+        <div v-else>Vue</div>
+
+        <!-- template不影响结构，只能配合v-if使用 -->
+        <template v-if="n === 1">
+            <h2>11</h2>
+            <h2>22</h2>
+            <h2>33</h2>
+        </template>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name:'佳慧',
+                n:0,
+            },
+            methods: {
+    
+            }
+        });
+    </script> 
+</body>
+</html>

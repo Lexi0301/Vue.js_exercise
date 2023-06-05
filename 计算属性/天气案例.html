@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例</title>
+</head>
+<body>
+    <div id="root">
+        <!-- {{里面只能放表达式}} -->
+        <h2>今天天气很{{info}}</h2>
+        <!-- 模板内容只能去vm中找 -->
+        <!-- 绑定事件内可以写一些简单的语句 -->
+        <button @click="changeWeather">切换天气</button>
+        <hr>
+        <h3>a的值：{{number.a}}</h3>
+        <button @click="adda">a+1</button>
+        <hr>
+        <h3>b的值：{{number.b}}</h3>
+        <button @click="addb">b+1</button>
+        <a href="www.baidu.com">百度</a>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                isHot:true,
+                number:{
+                    a:1,
+                    b:1,
+                }
+            },
+            methods: {
+                changeWeather(){
+                    this.isHot = !this.isHot;
+                },
+                adda(){
+                    this.number.a++;
+                },
+                addb(){
+                    this.number.b++;
+                }
+            },
+            computed:{
+                info(){
+                    return this.isHot ? '热' : '冷'
+                }
+            },
+            watch:{
+                // isHot(newValue,oldValue){
+                //         console.log('isHot被修改了',newValue,oldValue)
+                //     },
+                // number:{
+                //     deep:true, //开启深度监视，监视多级结构中所有属性的变化
+                //     handler(newValue,oldValue){
+                //         console.log('被修改了',newValue,oldValue);
+                //     }
+                // }
+            }
+
+
+        });
+
+            //完整写法
+            // vm.$watch('isHot', {
+            //     immediate:true, 
+            //         //handler什么时候调用？当isHot发生改变时。
+            //         handler(newValue,oldValue){
+            //             console.log('isHot被修改了',newValue,oldValue)
+            //         }
+            // });
+
+            //简写,vue的函数都不能是箭头函数
+            vm.$watch('isHot',function(newValue,oldValue){
+                        console.log('isHot被修改了',newValue,oldValue)
+                    })
+    </script>
+</body>
+</html> 

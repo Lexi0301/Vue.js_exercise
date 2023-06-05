@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>key的基本原理</title>
+</head>
+<body>
+    <div id="root">
+    <h2>人员列表</h2>
+    <input type="text" placeholder="请输入名字" v-model="keyWord">
+    <!-- <button @click.once="add">添加一个帅哥</button> -->
+    <!-- 遍历数组 -->
+    <ul>
+        <li v-for="(p,index) in filPersons" :key="p.id">
+            <!-- key用index会错位,p.id就不会 -->
+            {{p.name}}-{{p.age}}-{{p.sex}}
+            <!-- <input type="text"> -->
+        </li>
+    </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                persons:[
+                    {id:'001',name:'小一',age:19,sex:'男'},
+                    {id:'002',name:'小二',age:20,sex:'女'},
+                    {id:'003',name:'小三',age:21,sex:'男'},
+                    {id:'004',name:'小三1',age:41,sex:'女'},
+                    {id:'005',name:'小三3',age:31,sex:'女'},
+                ],
+                // filPersons:[],
+                keyWord:'',
+            },
+            computed:{
+                filPersons(){
+                    return this.persons.filter((p)=>{
+                        //js包含  indexOf
+                        //-1就时不包含
+                        return p.name.indexOf(this.keyWord) !== -1;
+                    });
+                }
+            },
+            methods: {
+                // add(){
+                //     const p ={id:'004',name:'林发康',age:23};
+                //     //unshift() 方法可向数组的开头添加一个或更多元素，并返回新的长度。
+                //     this.persons.unshift(p);
+                //     // this.persons.push(p);
+                // }
+                
+            },
+            // watch: {
+            //     keyWord:{
+            //         immediate:true,//完整的监视才可以用immediate
+            //         handler(val){
+            //             //原字符串里包含"空字符串"
+            //             this.filPersons = this.persons.filter((p)=>{
+            //             //js包含  indexOf
+            //             //-1就时不包含
+            //             return p.name.indexOf(val) !== -1;});
+            //         },
+            //     }
+            // }
+        });
+    </script>
+</body>
+</html>

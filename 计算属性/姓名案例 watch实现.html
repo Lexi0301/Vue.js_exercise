@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例-watch实现</title>
+</head>
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="firstName"><br>
+        名：<input type="text" v-model="lastName"><br>
+
+        <!-- 插值调用方法返回值要带括号{{方法名()}} -->
+        <!-- 姓名：<span>{{fullName()}}</span> -->
+        
+        <!-- 计算属性可以直接被读取 -->
+        姓名：<span>{{fullName}}</span>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                firstName:'Wang',
+                lastName:'jiahui',
+                fullName:''
+            },
+            methods: {
+
+            },
+            watch:{
+                firstName(val){
+                    setTimeout(() => {
+                        //定时器要用箭头函数，vue无关，定时器的this指的是window
+                        this.fullName = val+'-'+this.lastName;
+                    },1000)
+                    
+                },
+                lastName(val){
+                    this.fullName = this.firstName+'-'+val;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

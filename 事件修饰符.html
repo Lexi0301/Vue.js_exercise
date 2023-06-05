@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+    <style>
+        .demo1{
+            height: 50px;
+            background-color: #831b1b;
+        }
+        .box1{
+            padding: 5px;
+            background-color: #ec4c4c;
+        }
+        .box2{
+            padding: 5px;
+            background-color: #e47c7c;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2>欢迎{{name}}</h2>
+        <!-- 阻止默认事件 -->
+        <a href="http://www.bilibili.com" @click.prevent="showInfo">B站</a>
+        <!-- 关掉外层冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">提示，关掉外层冒泡</button>
+            事件冒泡：点内层组件，触发外层组件的事件
+        </div>
+        <!-- 只执行一次 -->
+        <button @click.once="showInfo">提示，只执行一次</button>
+        <!-- 事件捕获，先捕获再冒泡 -->
+        <div @click.capture="showMsg(1)" class="box1">
+            div1
+            <div @click="showMsg(2)" class="box2">div2</div>
+        </div>
+        <!-- 只有event.target是当前操作的元素时才触发事件 -->
+        <div class="demo1" @click.self="showInfo">
+            <button @click="showInfo">提示</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name:'佳慧',
+            },
+            methods: {
+                showInfo(e){
+                    // e.stopPropagation();//消除冒泡
+                    // alert('hello');
+                    console.log(e.target);
+                    // e.preventDefault();//超链接不转跳
+                },
+                showMsg(msg){
+                    console.log(msg);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

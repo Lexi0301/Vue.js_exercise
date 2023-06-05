@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据代理</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>name:{{name}}</h2>
+        <h2>address:{{address}}</h2>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name:"jhjhjhj",
+                address:'hjsdfihj'
+            }
+        });
+    // //数据代理，通过一个对象代理对另一个对象中属性的（读写）操作\
+    //     let obj = {x:100}
+    //     let obj2 = {y:200}
+
+    //     //通过obj2访问x
+    //     Object.defineProperty(obj2,'x',{
+    //         get(){
+    //             return obj,x
+    //         },
+    //         set(value){
+    //             obj.x = value
+    //         }
+    //     })
+    </script>
+</body>
+
+</html>

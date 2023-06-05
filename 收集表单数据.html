@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收集表单数据</title>
+</head>
+<body>
+    <div id="root">
+        <!-- prevent 提交后不会刷新页面 -->
+        <form @submit.prevent = 'demo'>
+            <!-- v-model 默认收集valuea，没有value不会工作 -->
+            <!-- v-model.trim去掉前后的空格 -->
+            账号：<input type="text" v-model.trim="userInfo.account"><br><br>
+            密码：<input type="password" v-model="userInfo.password"><br><br>
+            性别：
+            男<input type="radio" name="sex" v-model='userInfo.sex' value="male">
+            女<input type="radio" name="sex" v-model='userInfo.sex' value="female">
+            <br><br>
+            <!-- type的number限定输入的内容是数字，v-model的number限定VUE的age类型是数字不是字符串 -->
+            年龄：<input type="number" v-model.number="userInfo.age">
+            <br><br>
+            爱好：
+            抽烟<input type="checkbox" name="hobby" v-model="userInfo.hobby" vaLue="smoke">
+            喝酒<input type="checkbox" name="hobby" v-model="userInfo.hobby" value="drink">
+            烫头<input type="checkbox" name="hobby" v-model="userInfo.hobby" value="tangtou">
+            <br><br>
+            所属校区：
+            <select  v-model="userInfo.city">
+                <option value="laoShan">崂山</option>
+                <option value="gaoMi">高密</option>
+                <option value="siFang">四方</option>
+            </select>
+            <br><br>
+            其他信息：
+            <!-- v-model.lay：在失去焦点的一瞬间对数据收集，不是实时的收集 -->
+            <textarea name="" id="" cols="30" rows="10"  v-model.lazy ="userInfo.others"></textarea>
+            <br><br>
+            <input type="checkbox"  v-model="userInfo.agree">
+            阅读并接受<a href="#">《用户协议》</a>
+            <button>提交</button>
+            <br><br>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                userInfo:{
+                    account:'',
+                    password:'',
+                    sex:'female',
+                    age:'',
+                    hobby:['smoke','drink'],
+                    city:'siFang',
+                    others:'csadfds',
+                    agree:'true'
+            }
+            },
+            methods: {
+                demo(){
+                    //stringify 将对象转换为字符串
+                     console.log(JSON.stringify(this.userInfo));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

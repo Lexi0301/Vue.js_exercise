@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件的基本使用</title>
+</head>
+<body>
+    <div id="root">
+        <h2>欢迎{{name}}</h2>
+        <button v-on:click="showInfo1">提示(不传参)</button>
+        <br>
+        <button @click="showInfo2(88,$event)">(传参)v-on:可以简写成@,$even占位</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name:'佳慧',
+            },
+            methods: {
+                showInfo1(event){//不要用箭头函数，（普通函数看调用，箭头函数看定义）
+                    //console.log(this) //此处的this是vm
+                    console.log(event.target.innerText);
+                    alert('h');
+                },
+                showInfo2(number,a){//不要用箭头函数，（普通函数看调用，箭头函数看定义）
+                    //console.log(this) //此处的this是vm
+                    // alert('h2');
+                    console.log(number,a);
+                    console.log(event.target.innerText);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

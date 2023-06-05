@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>更新时的一个问题</title>
+</head>
+<body>
+    <div id="root">
+    <h2>人员列表</h2>
+      <!-- 遍历数组 -->
+      <button @click="updateMei">更新马冬梅</button>
+    <ul>
+        <li v-for="(p,index) in persons" :key="p.id">
+            <!-- key用index会错位,p.id就不会 -->
+            {{p.name}}-{{p.age}}-{{p.sex}}
+            <!-- <input type="text"> -->
+        </li>
+    </ul>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                persons:[
+                    {id:'001',name:'小一',age:19,sex:'男'},
+                    {id:'002',name:'小二',age:20,sex:'女'},
+                    {id:'003',name:'小三',age:21,sex:'男'},
+                    {id:'004',name:'小三1',age:41,sex:'女'},
+                    {id:'005',name:'小三3',age:31,sex:'女'},
+                ],
+            },
+            computed:{
+            },
+            methods: {
+                updateMei() {
+                    // this.persons[0].name = '马冬梅';//奏效
+                    // this.persons[0].age = 34;//奏效
+                    // this.persons[0].sex = '女';//奏效
+
+                    this.persons[0] = {id:'001',name:'马冬梅',age:34,sex:'女'};//监测不到
+                },
+                // add(){
+                //     const p ={id:'004',name:'林发康',age:23};
+                //     //unshift() 方法可向数组的开头添加一个或更多元素，并返回新的长度。
+                //     this.persons.unshift(p);
+                //     // this.persons.push(p);
+                // }
+                
+            },
+        });
+    </script>
+</body>
+</html>

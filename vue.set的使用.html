@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue.set的使用</title>
+</head>
+<body>
+    <div id="root">
+        <button @click="student.age++">年龄+1岁</button><br>
+        <button @click="addSex">添加性别属性，默认女</button><br>
+        <button @click="addFriend">在列表首位添加一个朋友</button><br>
+        <button @click="updateSan">修改第一个朋友的名字为：张三</button><br>
+        <button @click="addHobby">添加一个爱好</button><br>
+        <button @click="updateHobby">修改第一个爱好为:开车</button><br>
+        <button @click="removeSmoke">过滤爱好中的抽烟</button><br>
+        <h2>名称：{{name}}</h2>
+        <h2>地址：{{address}}</h2>
+        <hr>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2 v-show="student.sex">学生性别：{{student.sex}}</h2>
+        <h2>学生年龄：{{student.age}}</h2>
+        <h2>爱好：</h2>
+        <ul>
+            <li v-for="(h,index) in student.hobbies" :key="index">
+                {{h}}
+            </li>
+        </ul>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+        <!-- <h2>学生朋友名字：{{student.friends[0].name}},学生朋友年龄：{{student.friends[0].age}}</h2> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+    
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name: '佳慧',
+                address: '青科大',
+                student:{
+                    name:'tom',
+                    age:18,
+                    hobbies:['抽烟','喝酒','烫头'],
+                    friends:[
+                        {name:'ammy',age:12},
+                        {name:'jimmy',age:19}
+                    ]
+                }
+            },
+            methods: {
+                addSex(){
+                    // Vue.set(this.student,'sex','女')//要加 this
+                    this.$set(this.student,'sex','女')
+                },
+                addFriend(){
+                    // Vue.unshift(this.student.friends,{name:'杰尼龟',age:17})
+                    this.student.friends.unshift({name:'杰尼龟',age:17})
+                },
+                updateSan(){
+                    this.student.friends[0].name='蒜苗种子'
+                },
+                addHobby(){
+                    this.student.hobbies.push('种菜')
+                },
+                updateHobby(){
+                    // this.student.hobbies[0] = '开车' //这是错的，不可以直接通过数组的索引值去赋值
+                    this.student.hobbies.splice(0,1,'开车') //
+                },
+                removeSmoke(){
+                    this.student.hobbies = this.student.hobbies.filter((h)=>{
+                        return h !== '抽烟'
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+</html>
